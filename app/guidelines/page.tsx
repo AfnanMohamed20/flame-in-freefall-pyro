@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Logo from '@/app/components/Logo';
+
 
 const ALL_GUIDELINES = [
   {
@@ -129,11 +131,19 @@ const ALL_GUIDELINES = [
 export default function GuidelinesPage() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [reviewed, setReviewed] = useState<number[]>([]);
+  const [downloading, setDownloading] = useState(false);
 
   const toggleReview = (id: number) => {
     setReviewed((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+
+  const handleDownload = () => {
+    setDownloading(true);
+    setTimeout(() => {
+      setDownloading(false);
+    }, 2000);
   };
 
   const filtered = ALL_GUIDELINES.filter((g) => {
@@ -144,12 +154,9 @@ export default function GuidelinesPage() {
   return (
     <div className="min-h-screen bg-[#05070D] text-[#EEF1F7] font-['Plus_Jakarta_Sans'] flex flex-col md:flex-row selection:bg-[#FF6A28] selection:text-white">
       
-      {/* Sidebar - Fixed Sticky Header */}
+      {/* Sidebar */}
       <aside className="w-full md:w-64 p-6 border-r border-white/5 bg-[#080B13]/90 backdrop-blur-md flex flex-col gap-8 flex-none md:sticky md:top-0 md:h-screen overflow-y-auto">
-        <Link href="/" className="flex items-center gap-3 text-white no-underline">
-          <span className="w-8 h-8 rounded-full bg-[radial-gradient(circle,#FFE3B0_0%,#FF7A2E_35%,rgba(77,163,255,0.9)_62%,rgba(77,163,255,0)_72%)] shadow-[0_0_20px_rgba(77,163,255,0.5)] flex-none" />
-          <span className="font-['Space_Grotesk'] font-bold text-lg">PyroNova</span>
-        </Link>
+        <Logo />
 
         <nav className="flex flex-col gap-1.5">
           <div className="text-[11px] font-semibold text-[#6F7A8F] tracking-widest px-3 pb-2 uppercase">MENU</div>
@@ -173,7 +180,7 @@ export default function GuidelinesPage() {
 
         <div className="mt-auto p-4 rounded-2xl bg-[#4DA3FF]/[0.08] border border-[#4DA3FF]/20 flex flex-col gap-1.5">
           <div className="flex items-center gap-2 font-semibold text-xs text-white">
-            <span className="w-2 h-2 rounded-full bg-[#3DDC97] shadow-[0_0_10px_#3DDC97]" /> Guidelines Synced
+            <span className="w-2.5 h-2.5 rounded-full bg-[#3DDC97] animate-ping" /> Guidelines Synced
           </div>
           <div className="text-xs text-[#A9B2C3]">NASA-STD-6001 · Active</div>
         </div>
@@ -204,13 +211,26 @@ export default function GuidelinesPage() {
             </div>
             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-[#FF8A3D] to-[#FF5A1F] transition-all duration-300" 
+                className="h-full bg-gradient-to-r from-[#FF8A3D] to-[#3DDC97] transition-all duration-300" 
                 style={{ width: `${(reviewed.length / 12) * 100}%` }}
               />
             </div>
-            <button className="mt-1 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FF5A1F] text-white font-semibold text-sm shadow-lg shadow-orange-500/20 hover:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer border-0">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download checklist (PDF)
+            <button 
+              onClick={handleDownload}
+              className={`mt-1 w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer border-0 shadow-lg ${
+                downloading 
+                  ? 'bg-[#3DDC97] text-black shadow-green-500/20' 
+                  : 'bg-gradient-to-r from-[#FF8A3D] to-[#FF5A1F] text-white shadow-orange-500/20 hover:brightness-110'
+              }`}
+            >
+              {downloading ? (
+                <>✓ Checklist Downloaded Successfully!</>
+              ) : (
+                <>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download checklist (PDF)
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -228,37 +248,35 @@ export default function GuidelinesPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            
-            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 rounded-3xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 transition-all duration-300 hover:-translate-y-1">
               <span className="font-['Space_Grotesk'] font-bold text-2xl text-[#FF8A4C]">01</span>
               <h3 className="m-0 font-bold text-sm text-white">Stop the airflow</h3>
               <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">Shut off ventilation in the affected module.</p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 rounded-3xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 transition-all duration-300 hover:-translate-y-1">
               <span className="font-['Space_Grotesk'] font-bold text-2xl text-[#FF8A4C]">02</span>
               <h3 className="m-0 font-bold text-sm text-white">Cut the power</h3>
               <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">Isolate the affected rack or device.</p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 rounded-3xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 transition-all duration-300 hover:-translate-y-1">
               <span className="font-['Space_Grotesk'] font-bold text-2xl text-[#FF8A4C]">03</span>
               <h3 className="m-0 font-bold text-sm text-white">Extinguish</h3>
               <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">CO₂ or water mist, aimed at the source.</p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 rounded-3xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 transition-all duration-300 hover:-translate-y-1">
               <span className="font-['Space_Grotesk'] font-bold text-2xl text-[#FF8A4C]">04</span>
               <h3 className="m-0 font-bold text-sm text-white">Watch for re-ignition</h3>
               <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">Invisible cool flames can persist.</p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 rounded-3xl transition-all duration-300 hover:-translate-y-1">
+            <div className="p-4 rounded-2xl bg-[#0E1320]/80 border border-white/10 flex flex-col gap-2 hover:border-[#FF8A4C]/50 transition-all duration-300 hover:-translate-y-1">
               <span className="font-['Space_Grotesk'] font-bold text-2xl text-[#FF8A4C]">05</span>
               <h3 className="m-0 font-bold text-sm text-white">Clear the air</h3>
               <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">Masks on; monitor CO, O₂ and pressure.</p>
             </div>
-
           </div>
         </div>
 
@@ -292,7 +310,7 @@ export default function GuidelinesPage() {
             return (
               <div
                 key={item.id}
-                className={`p-6 rounded-3xl bg-gradient-to-b from-white/[0.045] to-white/[0.02] border transition-all flex flex-col gap-4 justify-between ${
+                className={`p-6 rounded-3xl bg-gradient-to-b from-white/[0.045] to-white/[0.02] border transition-all duration-300 flex flex-col gap-4 justify-between hover:-translate-y-1 ${
                   isChecked ? 'border-[#3DDC97]/40 bg-[#3DDC97]/[0.02]' : 'border-white/10 hover:border-white/20'
                 }`}
               >

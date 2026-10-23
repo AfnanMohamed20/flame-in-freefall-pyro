@@ -1,42 +1,39 @@
 import Link from 'next/link';
+import Logo from '@/app/components/Logo';
 
 export default function Home() {
   return (
-    <div className="stars min-h-screen bg-[#05070D] text-[#EEF1F7] font-['Plus_Jakarta_Sans'] relative overflow-x-hidden selection:bg-[#FF6A28] selection:text-white">
+    <div className="min-h-screen bg-transparent text-[#EEF1F7] font-['Plus_Jakarta_Sans'] relative overflow-x-hidden selection:bg-[#FF6A28] selection:text-white z-10">
       
-      {/* Background Radial Glow */}
-      <div className="absolute top-[-260px] left-1/2 w-[1100px] h-[800px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(255,106,40,0.20),rgba(77,140,255,0.10)_55%,rgba(5,7,13,0)_100%)] pointer-events-none" />
+      {/* Background Glow */}
+      <div className="absolute top-[-260px] left-1/2 w-[1100px] h-[800px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(255,106,40,0.22),rgba(77,140,255,0.1)_55%,rgba(5,7,13,0)_100%)] pointer-events-none animate-pulse duration-[4000ms]" />
 
       {/* Navbar */}
       <header className="relative pt-5 px-6 z-50">
-        <div className="max-w-[1200px] mx-auto px-5 py-2.5 flex flex-wrap items-center justify-between gap-3 bg-[rgba(14,18,28,0.7)] border border-white/10 rounded-full backdrop-blur-md shadow-2xl">
-          
-          <Link href="/" className="flex items-center gap-2.5 text-white no-underline min-h-[44px]">
-            <span className="w-8.5 h-8.5 rounded-full bg-[radial-gradient(circle,#FFE3B0_0%,#FF7A2E_35%,rgba(77,163,255,0.9)_62%,rgba(77,163,255,0)_72%)] shadow-[0_0_24px_rgba(77,163,255,0.5)] flex-none" />
-            <span className="font-bold text-xl font-['Space_Grotesk'] tracking-tight">PyroNova</span>
-          </Link>
+        <div className="max-w-[1200px] mx-auto px-5 py-2.5 flex items-center justify-between bg-[rgba(14,18,28,0.7)] border border-white/10 rounded-full backdrop-blur-md shadow-2xl">
 
-          <nav className="flex flex-wrap gap-1 text-sm font-medium">
+          <Logo />
+
+          <nav className="hidden md:flex gap-1 text-sm font-medium">
             <Link href="/" className="text-white bg-white/10 px-4 py-2 rounded-full transition-all">Home</Link>
             <Link href="/dashboard" className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all">Dashboard</Link>
             <Link href="/chat" className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all">AI Chat</Link>
-            <Link href="/guidelines" className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all">Safety Guidelines</Link>
+            <Link href="/guidelines" className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all">Guidelines</Link>
           </nav>
 
-          <div className="flex items-center gap-2">
-            <Link href="/login" className="text-[#EEF1F7] hover:text-white font-semibold text-sm px-4 py-2 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all">
-              Log in
-            </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/login" className="hidden sm:inline-block text-[#EEF1F7] hover:text-white font-semibold text-sm px-4 py-2 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all">
+            Log in</Link>
             <Link href="/signup" className="text-white font-semibold text-sm px-4.5 py-2 rounded-full bg-gradient-to-r from-[#FF8A3D] to-[#FF5A1F] hover:brightness-110 shadow-lg shadow-orange-500/25 transition-all">
               Sign up
             </Link>
+            </div>
           </div>
 
-        </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative max-w-[1200px] mx-auto pt-[80px] px-6 pb-10 flex flex-col items-center text-center gap-6">
+      <section className="relative max-w-[1200px] mx-auto pt-[80px] px-6 pb-10 flex flex-col items-center text-center gap-6 z-10">
         <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-[#C3CAD8] backdrop-blur-sm">
           <span className="bg-[#FF6A28] text-white font-bold text-xs px-2.5 py-0.5 rounded-full">NEW</span>
           AI insights from 60 years of NASA combustion research
@@ -62,7 +59,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Microgravity Flame Visual Simulation */}
       <section className="relative max-w-[1200px] mx-auto px-6 py-8">
         <div className="relative h-[480px] md:h-[520px] rounded-[32px] border border-white/10 bg-[radial-gradient(ellipse_at_50%_55%,#0E1830_0%,#070A13_70%)] overflow-hidden flex items-center justify-center shadow-2xl">
           
@@ -74,12 +70,22 @@ export default function Home() {
             <span className="absolute bottom-5 right-7 w-2 h-2 rounded-full bg-[#FF8A4C] shadow-[0_0_12px_#FF8A4C]" />
           </div>
 
-          {/* Flame Core */}
-          <div className="animate-flame absolute w-[250px] h-[250px] rounded-full bg-[radial-gradient(circle,rgba(255,230,180,0.95)_0%,rgba(255,140,60,0.9)_14%,rgba(255,90,31,0.35)_26%,rgba(7,10,19,0)_34%,rgba(77,163,255,0.95)_46%,rgba(77,163,255,0.35)_54%,rgba(77,163,255,0)_68%)] shadow-[0_0_120px_rgba(77,163,255,0.35)]" />
-          <div className="absolute w-3.5 h-3.5 rounded-full bg-[#2A3142] border border-[#4A5468]" />
+          <div className="relative flex items-center justify-center">
+            
+            <div className="absolute w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(77,163,255,0.35)_0%,rgba(255,106,40,0.15)_40%,rgba(7,10,19,0)_70%)] animate-pulse duration-[3000ms]" />
 
-          {/* Floating Floating Cards */}
-          <div className="animate-float-1 absolute top-10 left-6 md:left-12 bg-[#0E121C]/80 border border-white/10 rounded-2xl p-4 backdrop-blur-md flex items-center gap-3 shadow-lg">
+            <div className="absolute w-[360px] h-[360px] rounded-full bg-[radial-gradient(circle,rgba(77,163,255,0.45)_0%,rgba(77,163,255,0.12)_45%,rgba(7,10,19,0)_68%)] shadow-[0_0_160px_rgba(77,163,255,0.35)] opacity-90" />
+
+            <div className="animate-flame w-[260px] h-[260px] rounded-full bg-[radial-gradient(circle,rgba(255,140,60,0.98)_0%,rgba(255,110,31,0.92)_30%,rgba(200,60,20,0.65)_55%,rgba(7,10,19,0)_72%)] shadow-[0_0_130px_rgba(255,140,60,0.6)] flex items-center justify-center relative overflow-hidden">
+              
+              <div className="absolute inset-0 bg-[repeating-radial-gradient(circle,rgba(255,200,100,0.08)_0%,rgba(255,110,31,0.05)_5%,rgba(7,10,19,0)_10%)] opacity-80" />
+              
+              <div className="w-6 h-6 rounded-full bg-[radial-gradient(circle,#FFE3B0_0%,#FFB067_50%,#FF5A1F_100%)] border border-white/40 shadow-[0_0_30px_#FFE3B0] z-10 animate-ping duration-[2000ms]" />
+            </div>
+          </div>
+          
+          {/* Floating Cards */}
+          <div className="animate-float-1 absolute top-10 left-6 md:left-12 bg-[#0E121C]/80 border border-white/10 rounded-2xl p-4 backdrop-blur-md flex items-center gap-3 shadow-lg z-20">
             <span className="w-10 h-10 rounded-xl bg-[#7DB8FF]/15 flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7DB8FF" strokeWidth="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
             </span>
@@ -89,7 +95,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="animate-float-2 absolute bottom-12 right-6 md:right-12 bg-[#0E121C]/80 border border-white/10 rounded-2xl p-4 backdrop-blur-md flex items-center gap-3 shadow-lg">
+          <div className="animate-float-2 absolute bottom-12 right-6 md:right-12 bg-[#0E121C]/80 border border-white/10 rounded-2xl p-4 backdrop-blur-md flex items-center gap-3 shadow-lg z-20">
             <span className="w-10 h-10 rounded-xl bg-[#FF6A28]/15 flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF8A4C" strokeWidth="2"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>
             </span>
@@ -99,7 +105,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="animate-float-1 absolute top-16 right-8 md:right-16 bg-[#0E121C]/80 border border-white/10 rounded-2xl px-4 py-3 backdrop-blur-md text-sm flex items-center gap-2 shadow-lg">
+          <div className="animate-float-1 absolute top-16 right-8 md:right-16 bg-[#0E121C]/80 border border-white/10 rounded-2xl px-4 py-3 backdrop-blur-md text-sm flex items-center gap-2 shadow-lg z-20">
             <span className="w-2 h-2 rounded-full bg-[#3DDC97] shadow-[0_0_10px_#3DDC97]" /> 7 campaigns indexed
           </div>
 

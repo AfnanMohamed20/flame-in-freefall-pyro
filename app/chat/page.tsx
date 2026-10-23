@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Logo from '@/app/components/Logo';
 
 const KNOWLEDGE_BASE = [
   {
@@ -60,7 +61,7 @@ export default function ChatPage() {
   const [draft, setDraft] = useState('');
   const [typing, setTyping] = useState(false);
 
-  const handleSend = (textToSend?: string) => {
+ const handleSend = (textToSend?: string) => {
     const query = textToSend || draft;
     if (!query.trim() || typing) return;
 
@@ -74,12 +75,38 @@ export default function ChatPage() {
     setTyping(true);
 
     setTimeout(() => {
+      setTyping(false);
+      
+      const fullText = matched.text;
+      const aiMessageIndex = messages.length + 1;
+
       setMessages((prev) => [
         ...prev,
-        { role: 'ai', text: matched.text, sources: matched.sources }
+        { role: 'ai', text: '', sources: matched.sources }
       ]);
-      setTyping(false);
-    }, 1100);
+
+      let charIndex = 0;
+      const interval = setInterval(() => {
+        if (charIndex <= fullText.length) {
+          const currentSubstr = fullText.substring(0, charIndex);
+          setMessages((prev) => {
+            const updated = [...prev];
+            if (updated[aiMessageIndex]) {
+              updated[aiMessageIndex] = {
+                role: 'ai',
+                text: currentSubstr,
+                sources: matched.sources
+              };
+            }
+            return updated;
+          });
+          charIndex += 2; 
+        } else {
+          clearInterval(interval);
+        }
+      }, 15); 
+
+    }, 800);
   };
 
   return (
@@ -87,10 +114,7 @@ export default function ChatPage() {
       
       {/* Sidebar - Fixed Sticky */}
       <aside className="w-72 p-5 border-r border-white/5 bg-[#080B13] hidden md:flex flex-col gap-5 flex-none h-screen sticky top-0 overflow-y-auto">
-        <Link href="/" className="flex items-center gap-3 text-white no-underline px-2">
-          <span className="w-8 h-8 rounded-full bg-[radial-gradient(circle,#FFE3B0_0%,#FF7A2E_35%,rgba(77,163,255,0.9)_62%,rgba(77,163,255,0)_72%)] shadow-[0_0_18px_rgba(77,163,255,0.5)] flex-none" />
-          <span className="font-['Space_Grotesk'] font-bold text-lg">PyroNova</span>
-        </Link>
+        <Logo />
 
         <button 
           onClick={() => setMessages([])}
