@@ -8,9 +8,9 @@ export default function Home() {
       {/* Background Glow */}
       <div className="absolute top-[-260px] left-1/2 w-[1100px] h-[800px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(255,106,40,0.22),rgba(77,140,255,0.1)_55%,rgba(5,7,13,0)_100%)] pointer-events-none animate-pulse duration-[4000ms]" />
 
-      {/* Navbar */}
-      <header className="relative pt-5 px-6 z-50">
-        <div className="max-w-[1200px] mx-auto px-5 py-2.5 flex items-center justify-between bg-[rgba(14,18,28,0.7)] border border-white/10 rounded-full backdrop-blur-md shadow-2xl">
+            {/* Navbar */}
+      <header className="relative pt-5 z-50">
+        <div className="w-[calc(100%-3rem)] mx-auto px-5 py-2.5 flex items-center justify-between bg-[rgba(14,18,28,0.7)] border border-white/10 rounded-full backdrop-blur-md shadow-2xl">
           <Logo />
 
           <nav className="hidden md:flex gap-1 text-sm font-medium">
