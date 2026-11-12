@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #05070D;
-  --foreground: #EEF1F7;
+  --background: #05070d;
+  --foreground: #eef1f7;
 }
 html {
-  font-family: var(--font-sans);
+  font-family: inherit;
 }
-
 button,
 input,
 textarea,
@@ -16,10 +15,9 @@ select {
 }
 
 body {
-  background-color: #05070D !important;
-  color: #EEF1F7 !important;
-  font-family: var(--font-sans);
-  overflow-x: hidden;
+  background-color: #05070d !important;
+  color: #eef1f7 !important;
+  font-family: inherit;  overflow-x: hidden;
   position: relative;
   min-height: 100vh;
 }
@@ -31,17 +29,53 @@ body::before {
   left: -50%;
   width: 200vw;
   height: 200vh;
-  background-image: 
-    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255, 255, 255, 0.95), transparent),
-    radial-gradient(1px 1px at 90px 120px, rgba(255, 255, 255, 0.7), transparent),
-    radial-gradient(1.5px 1.5px at 150px 180px, rgba(125, 184, 255, 0.8), transparent),
-    radial-gradient(2px 2px at 220px 80px, rgba(255, 138, 76, 0.9), transparent),
-    radial-gradient(1px 1px at 300px 100px, rgba(255, 255, 255, 0.8), transparent),
-    radial-gradient(1.5px 1.5px at 380px 240px, rgba(125, 184, 255, 0.6), transparent),
-    radial-gradient(1px 1px at 450px 350px, rgba(255, 255, 255, 0.7), transparent),
-    radial-gradient(2px 2px at 520px 150px, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(1.5px 1.5px at 600px 200px, rgba(255, 255, 255, 0.85), transparent);
-  background-size: 250px 250px; 
+  background-image:
+    radial-gradient(
+      1.5px 1.5px at 20px 30px,
+      rgba(255, 255, 255, 0.95),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 90px 120px,
+      rgba(255, 255, 255, 0.7),
+      transparent
+    ),
+    radial-gradient(
+      1.5px 1.5px at 150px 180px,
+      rgba(125, 184, 255, 0.8),
+      transparent
+    ),
+    radial-gradient(
+      2px 2px at 220px 80px,
+      rgba(255, 138, 76, 0.9),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 300px 100px,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    ),
+    radial-gradient(
+      1.5px 1.5px at 380px 240px,
+      rgba(125, 184, 255, 0.6),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 450px 350px,
+      rgba(255, 255, 255, 0.7),
+      transparent
+    ),
+    radial-gradient(
+      2px 2px at 520px 150px,
+      rgba(255, 255, 255, 0.9),
+      transparent
+    ),
+    radial-gradient(
+      1.5px 1.5px at 600px 200px,
+      rgba(255, 255, 255, 0.85),
+      transparent
+    );
+  background-size: 250px 250px;
   animation: move-stars 45s linear infinite;
   pointer-events: none;
   z-index: 0;
@@ -54,53 +88,116 @@ body::after {
   left: -50%;
   width: 200vw;
   height: 200vh;
-  background-image: 
-    radial-gradient(1px 1px at 40px 80px, rgba(255, 255, 255, 0.8), transparent),
-    radial-gradient(1px 1px at 110px 250px, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(1.5px 1.5px at 220px 290px, rgba(125, 184, 255, 0.7), transparent),
-    radial-gradient(1px 1px at 310px 190px, rgba(255, 138, 76, 0.7), transparent),
-    radial-gradient(1px 1px at 420px 80px, rgba(255, 255, 255, 0.85), transparent),
-    radial-gradient(1.5px 1.5px at 480px 140px, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(1px 1px at 550px 320px, rgba(125, 184, 255, 0.5), transparent);
-  background-size: 200px 200px; 
-  animation: move-stars-reverse 30s linear infinite; 
+  background-image:
+    radial-gradient(
+      1px 1px at 40px 80px,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 110px 250px,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    ),
+    radial-gradient(
+      1.5px 1.5px at 220px 290px,
+      rgba(125, 184, 255, 0.7),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 310px 190px,
+      rgba(255, 138, 76, 0.7),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 420px 80px,
+      rgba(255, 255, 255, 0.85),
+      transparent
+    ),
+    radial-gradient(
+      1.5px 1.5px at 480px 140px,
+      rgba(255, 255, 255, 0.9),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 550px 320px,
+      rgba(125, 184, 255, 0.5),
+      transparent
+    );
+  background-size: 200px 200px;
+  animation: move-stars-reverse 30s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
 
 @keyframes move-stars {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-400px, -400px); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-400px, -400px);
+  }
 }
 
 @keyframes move-stars-reverse {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(400px, 400px); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(400px, 400px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.85; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
 }
 
 @keyframes spin-orbit {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes float-card {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-.animate-flame { animation: pulse-glow 3.2s ease-in-out infinite; }
-.animate-orbit-1 { animation: spin-orbit 26s linear infinite; }
-.animate-orbit-2 { animation: spin-orbit 40s linear infinite reverse; }
-.animate-float-1 { animation: float-card 5s ease-in-out infinite; }
-.animate-float-2 { animation: float-card 6s ease-in-out infinite 0.8s; }
+.animate-flame {
+  animation: pulse-glow 3.2s ease-in-out infinite;
+}
+.animate-orbit-1 {
+  animation: spin-orbit 26s linear infinite;
+}
+.animate-orbit-2 {
+  animation: spin-orbit 40s linear infinite reverse;
+}
+.animate-float-1 {
+  animation: float-card 5s ease-in-out infinite;
+}
+.animate-float-2 {
+  animation: float-card 6s ease-in-out infinite 0.8s;
+}
 
 @theme inline {
-  --font-sans: var(--font-roboto-condensed), var(--font-geist-sans), sans-serif;
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-pacifico), cursive;
+  --font-sans: var(--font-ubuntu), sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-display: var(--font-ubuntu), sans-serif;
 }
-
+[class*="Space_Grotesk"],
+[class*="Plus_Jakarta_Sans"] {
+  font-family: var(--font-ubuntu), sans-serif !important;
+}
