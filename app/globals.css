@@ -4,11 +4,21 @@
   --background: #05070D;
   --foreground: #EEF1F7;
 }
+html {
+  font-family: var(--font-sans);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
 
 body {
   background-color: #05070D !important;
   color: #EEF1F7 !important;
-  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
@@ -87,4 +97,10 @@ body::after {
 .animate-orbit-2 { animation: spin-orbit 40s linear infinite reverse; }
 .animate-float-1 { animation: float-card 5s ease-in-out infinite; }
 .animate-float-2 { animation: float-card 6s ease-in-out infinite 0.8s; }
+
+@theme inline {
+  --font-sans: var(--font-roboto-condensed), var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-pacifico), cursive;
+}
 
