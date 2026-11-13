@@ -1,123 +1,127 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from '@/app/components/Logo';
-
-const KNOWLEDGE_BASE = [
-  {
-    keys: ['blue', 'sphere', 'spherical', 'shape', 'round', 'look'],
-    text: 'In microgravity there is no buoyancy, so hot combustion gases don’t rise and fresh air isn’t pulled in from below. Oxygen reaches the flame only by slow diffusion from every direction — which is why the flame forms a sphere around the fuel.\n\nThey look blue and dim because the flame produces less glowing soot. That matters for safety: a microgravity fire can be harder to see than one on Earth.',
-    sources: ['FLEX', 'Drop towers']
-  },
-  {
-    keys: ['cool', 'invisible', 'heptane', 'flex'],
-    text: 'Cool flames are a low-temperature burning mode. During FLEX on the ISS, heptane droplets kept burning after the bright hot flame went out — the reaction continued at much lower temperature, with almost no visible light.\n\nWhy it matters:\n• A fire can look extinguished while chemistry is still running.\n• Re-ignition is possible if conditions change.\n• Detection should combine gas sensing and temperature, not cameras alone.',
-    sources: ['FLEX', 'FLEX-2']
-  },
-  {
-    keys: ['6001', 'test 1', 'standard', 'screen', 'material', 'flammab'],
-    text: 'Not always. NASA-STD-6001 Test 1 is an upward-burning test in normal gravity, where buoyant flow is strong. Microgravity experiments showed some materials can keep burning in gentle, low-speed flow at oxygen levels that a 1 g test would rate as safe.\n\nRecommendation: keep Test 1 for screening, but add margin for low-flow microgravity, and re-test materials at the oxygen level of the target cabin atmosphere.',
-    sources: ['BASS / BASS-II', 'SoFIE']
-  },
-  {
-    keys: ['crew', 'first', 'respond', 'extinguish', 'suppress', 'what should', 'do if'],
-    text: 'The evidence points to this order:\n1. Shut off ventilation in the affected module — airflow feeds microgravity flames.\n2. Remove power from the affected rack or equipment.\n3. Apply a portable extinguisher (CO₂ or water mist) at the source.\n4. Keep monitoring for re-ignition — flames can persist invisibly.\n5. Track CO, oxygen and pressure, and don masks until the air is cleared.',
-    sources: ['BASS / BASS-II', 'Saffire I–VI', 'FLEX']
-  },
-  {
-    keys: ['saffire', 'cygnus', 'large', 'big'],
-    text: 'Saffire lit large fires inside uncrewed Cygnus cargo vehicles after they departed the ISS — the first spacecraft-scale fire tests in microgravity, using samples around a meter long.\n\nKey lessons:\n• Flames spread steadily across large samples in cabin-like airflow.\n• A fire measurably raises pressure and changes oxygen and combustion products in a closed vehicle.\n• The data validated the models used to size detection and suppression.',
-    sources: ['Saffire I–VI']
-  },
-  {
-    keys: ['moon', 'lunar', 'mars', 'artemis', '34', 'exploration', 'partial', 'gravity'],
-    text: 'Two things change on Artemis-era missions:\n• Atmosphere — the proposed exploration atmosphere is 8.2 psia with 34% oxygen. Higher oxygen fraction makes most materials ignite and spread more easily.\n• Gravity — on the Moon (0.16 g) and Mars (0.38 g), buoyant flow is weak but present. Studies suggest some materials can be more flammable at partial gravity than in either 1 g or microgravity.\n\nMaterials approved for the ISS should be re-evaluated for these conditions.',
-    sources: ['SoFIE', 'BASS / BASS-II']
-  }
-];
-
-const FALLBACK_RESPONSE = {
-  text: 'I couldn’t find a strong match in the indexed experiments for that question. Try asking about flame shape, cool flames, material screening, crew response, Saffire, or Moon and Mars conditions.',
-  sources: ['Experiment catalog']
-};
-
-const SUGGESTIONS = [
-  { title: 'Why are flames spherical and blue?', sub: 'Flame shape without gravity' },
-  { title: 'What are cool flames?', sub: 'Invisible burning seen in FLEX' },
-  { title: 'What should the crew do first if a fire starts?', sub: 'Response sequence' },
-  { title: 'How do Moon and Mars missions change fire risk?', sub: 'Exploration atmosphere & partial gravity' }
-];
-
-const RECENT_CHATS = [
-  'Is NASA-STD-6001 Test 1 conservative?',
-  'What did Saffire teach us?',
-  'Why are flames spherical and blue?',
-  'What are cool flames?'
-];
+import { chatApi } from '@/app/lib/api';
 
 export default function ChatPage() {
+  const [chats, setChats] = useState<any[]>([]);
+  const [currentChatId, setCurrentChatId] = useState<number | undefined>(undefined);
   const [messages, setMessages] = useState<{ role: 'user' | 'ai'; text: string; sources?: string[] }[]>([]);
   const [draft, setDraft] = useState('');
   const [typing, setTyping] = useState(false);
 
- const handleSend = (textToSend?: string) => {
+  async function fetchChats() {
+    try {
+      const data = await chatApi.getChats();
+      if (data.chats && data.chats.length > 0) {
+        setChats(data.chats);
+        const firstChatId = data.chats[0].id;
+        setCurrentChatId(firstChatId);
+        fetchChatHistory(firstChatId);
+      }
+    } catch (error) {
+      console.error('Failed to load chats:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
+  async function fetchChatHistory(chatId: number) {
+    try {
+      const data = await chatApi.getChatHistory(chatId);
+      if (data.chat && data.chat.messages) {
+        const formattedMessages = data.chat.messages.flatMap((m: any) => {
+          const arr: { role: 'user' | 'ai'; text: string; sources?: string[] }[] = [];
+          if (m.message) {
+            arr.push({ role: 'user', text: m.message });
+          }
+          if (m.answer) {
+            arr.push({
+              role: 'ai',
+              text: m.answer.answer || 'No response generated.',
+              sources: m.answer.sources || m.answer.experimental_evidence?.map((e: any) => e.source) || []
+            });
+          }
+          return arr;
+        });
+        setMessages(formattedMessages);
+      }
+    } catch (error) {
+      console.error('Failed to load chat history:', error);
+    }
+  }
+
+  const handleNewChat = async () => {
+    try {
+      const data = await chatApi.createChat();
+      if (data.chat) {
+        setChats([data.chat, ...chats]);
+        setCurrentChatId(data.chat.id);
+        setMessages([]);
+      }
+    } catch (error) {
+      console.error('Failed to create chat:', error);
+    }
+  };
+
+  const handleSend = async (textToSend?: string) => {
     const query = textToSend || draft;
     if (!query.trim() || typing) return;
 
-    const lower = query.toLowerCase();
-    const matched = KNOWLEDGE_BASE.find((item) =>
-      item.keys.some((k) => lower.includes(k))
-    ) || FALLBACK_RESPONSE;
-
-    setMessages((prev) => [...prev, { role: 'user', text: query }]);
     setDraft('');
     setTyping(true);
+    setMessages((prev) => [...prev, { role: 'user', text: query }]);
 
-    setTimeout(() => {
-      setTyping(false);
-      
-      const fullText = matched.text;
-      const aiMessageIndex = messages.length + 1;
+    try {
+      let chatId = currentChatId;
+
+      if (!chatId) {
+        const newChatRes = await chatApi.createChat();
+        chatId = newChatRes.chat.id;
+        setCurrentChatId(chatId);
+        setChats((prev) => [newChatRes.chat, ...prev]);
+      }
+
+      const res = await chatApi.askAi({
+        question: query,
+        chat_id: chatId as number,
+      });
+
+      const aiAnswer = res.data?.answer?.answer || res.message || 'Response received.';
+      const sources = res.data?.answer?.sources || [];
 
       setMessages((prev) => [
         ...prev,
-        { role: 'ai', text: '', sources: matched.sources }
+        { role: 'ai', text: aiAnswer, sources: sources }
       ]);
 
-      let charIndex = 0;
-      const interval = setInterval(() => {
-        if (charIndex <= fullText.length) {
-          const currentSubstr = fullText.substring(0, charIndex);
-          setMessages((prev) => {
-            const updated = [...prev];
-            if (updated[aiMessageIndex]) {
-              updated[aiMessageIndex] = {
-                role: 'ai',
-                text: currentSubstr,
-                sources: matched.sources
-              };
-            }
-            return updated;
-          });
-          charIndex += 2; 
-        } else {
-          clearInterval(interval);
-        }
-      }, 15); 
-
-    }, 800);
+      fetchChats();
+    } catch (error) {
+      console.error('Failed to send message to AI:', error);
+      setMessages((prev) => [
+        ...prev,
+        { role: 'ai', text: 'Sorry, an error occurred while communicating with the AI server.' }
+      ]);
+    } finally {
+      setTyping(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#05070D] text-[#EEF1F7] font-['Plus_Jakarta_Sans'] flex overflow-hidden">
       
-      {/* Sidebar - Fixed Sticky */}
+      {/* Sidebar */}
       <aside className="w-72 p-5 border-r border-white/5 bg-[#080B13] hidden md:flex flex-col gap-5 flex-none h-screen sticky top-0 overflow-y-auto">
-        <Logo />
+        <div className="flex items-center transition-all duration-300 drop-shadow-[0_0_12px_rgba(255,138,61,0.6)] cursor-pointer">
+                <Logo />
+          </div>
 
         <button 
-          onClick={() => setMessages([])}
+          onClick={handleNewChat}
           className="flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-xl border border-white/12 bg-white/[0.04] text-white font-semibold text-sm hover:bg-white/[0.08] transition-all cursor-pointer"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
@@ -125,15 +129,20 @@ export default function ChatPage() {
         </button>
 
         <div className="flex flex-col gap-1">
-          <div className="text-[11px] font-semibold text-[#6F7A8F] tracking-widest px-3 pb-2 uppercase">RECENT</div>
-          {RECENT_CHATS.map((chat, idx) => (
+          <div className="text-[11px] font-semibold text-[#6F7A8F] tracking-widest px-3 pb-2 uppercase">CHATS</div>
+          {chats.map((chat) => (
             <button 
-              key={idx} 
-              onClick={() => handleSend(chat)}
-              className="flex items-center gap-2.5 w-full text-left px-3 py-2.5 rounded-xl text-xs text-[#A9B2C3] hover:text-white hover:bg-white/5 transition-all truncate cursor-pointer bg-transparent border-0"
+              key={chat.id} 
+              onClick={() => {
+                setCurrentChatId(chat.id);
+                fetchChatHistory(chat.id);
+              }}
+              className={`flex items-center gap-2.5 w-full text-left px-3 py-2.5 rounded-xl text-xs transition-all truncate cursor-pointer border-0 ${
+                currentChatId === chat.id ? 'bg-white/10 text-white font-semibold' : 'text-[#A9B2C3] hover:text-white hover:bg-white/5 bg-transparent'
+              }`}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="flex-none"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
-              <span className="truncate">{chat}</span>
+              <span className="truncate">{chat.title || `Chat #${chat.id}`}</span>
             </button>
           ))}
         </div>
@@ -157,15 +166,13 @@ export default function ChatPage() {
       {/* Chat Workspace */}
       <main className="flex-1 flex flex-col h-screen bg-[radial-gradient(ellipse_at_50%_-20%,rgba(77,140,255,0.12),transparent_55%)]">
         
-        {/* Top Header */}
         <div className="flex items-center justify-between px-6 py-3.5 border-b border-white/6 bg-[#05070D]/80 backdrop-blur-md flex-none">
           <div className="flex items-center gap-3">
             <span className="font-['Space_Grotesk'] font-semibold text-base text-white">Fire Safety Assistant</span>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#3DDC97]/12 text-[#5FE3AA]">RAG · 7 campaigns</span>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#3DDC97]/12 text-[#5FE3AA]">API Connected</span>
           </div>
         </div>
 
-        {/* Chat Messages Scrollable Area */}
         <div className="flex-1 overflow-y-auto p-6 md:p-8">
           <div className="max-w-[800px] mx-auto flex flex-col gap-6">
             
@@ -173,21 +180,7 @@ export default function ChatPage() {
               <div className="flex flex-col items-center text-center gap-4 py-10">
                 <div className="w-16 h-16 rounded-full bg-[radial-gradient(circle,#FFE3B0_0%,#FF7A2E_30%,rgba(77,163,255,0.9)_58%,rgba(77,163,255,0)_72%)] shadow-[0_0_40px_rgba(77,163,255,0.5)]" />
                 <h1 className="m-0 font-['Space_Grotesk'] font-bold text-2xl md:text-3xl text-white tracking-tight">Ask anything about fire in space</h1>
-                <p className="m-0 text-sm text-[#A9B2C3] max-w-[500px]">Answers come from NASA microgravity combustion experiments, with sources for every claim.</p>
-                
-                {/* Suggestion Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full pt-4">
-                  {SUGGESTIONS.map((s, idx) => (
-                    <button 
-                      key={idx}
-                      onClick={() => handleSend(s.title)}
-                      className="text-left p-4 rounded-2xl border border-white/9 bg-white/[0.03] hover:border-[#FF8A4C]/50 hover:bg-[#FF6A28]/[0.06] transition-all cursor-pointer flex flex-col gap-1"
-                    >
-                      <span className="font-semibold text-sm text-white">{s.title}</span>
-                      <span className="text-xs text-[#8E98AB]">{s.sub}</span>
-                    </button>
-                  ))}
-                </div>
+                <p className="m-0 text-sm text-[#A9B2C3] max-w-[500px]">Answers come directly from NASA microgravity combustion backend records.</p>
               </div>
             )}
 
@@ -223,14 +216,13 @@ export default function ChatPage() {
                   <span className="w-2 h-2 rounded-full bg-[#C3CAD8] animate-bounce [animation-delay:0.2s]" />
                   <span className="w-2 h-2 rounded-full bg-[#C3CAD8] animate-bounce [animation-delay:0.4s]" />
                 </div>
-                <span className="text-xs text-[#8E98AB]">Searching experiment records…</span>
+                <span className="text-xs text-[#8E98AB]">PyroNova AI is analyzing combustion data...</span>
               </div>
             )}
 
           </div>
         </div>
 
-        {/* Input Bar at Bottom */}
         <div className="p-4 md:p-6 bg-[#05070D]/90 backdrop-blur-md border-t border-white/6 flex-none">
           <form 
             onSubmit={(e) => { e.preventDefault(); handleSend(); }}

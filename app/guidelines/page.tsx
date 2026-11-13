@@ -156,8 +156,9 @@ export default function GuidelinesPage() {
       
       {/* Sidebar */}
       <aside className="w-full md:w-64 p-6 border-r border-white/5 bg-[#080B13]/90 backdrop-blur-md flex flex-col gap-8 flex-none md:sticky md:top-0 md:h-screen overflow-y-auto">
-        <Logo />
-
+        <div className="flex items-center transition-all duration-300 drop-shadow-[0_0_12px_rgba(255,138,61,0.6)] cursor-pointer">
+                    <Logo />
+            </div>
         <nav className="flex flex-col gap-1.5">
           <div className="text-[11px] font-semibold text-[#6F7A8F] tracking-widest px-3 pb-2 uppercase">MENU</div>
           <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#A9B2C3] hover:text-white hover:bg-white/5 font-medium text-sm transition-all">
@@ -167,6 +168,10 @@ export default function GuidelinesPage() {
           <Link href="/chat" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#A9B2C3] hover:text-white hover:bg-white/5 font-medium text-sm transition-all">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
             AI Chat
+          </Link>
+          <Link href="/experiments" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#A9B2C3] hover:text-white hover:bg-white/5 font-medium text-sm transition-all">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+            Experiments
           </Link>
           <Link href="/guidelines" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-[rgba(255,106,40,0.18)] to-[rgba(255,106,40,0.04)] text-white font-medium text-sm">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>

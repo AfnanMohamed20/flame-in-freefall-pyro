@@ -9,9 +9,11 @@ export default function Home() {
       <div className="absolute top-[-260px] left-1/2 w-[1100px] h-[800px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(255,106,40,0.22),rgba(77,140,255,0.1)_55%,rgba(5,7,13,0)_100%)] pointer-events-none animate-pulse duration-[4000ms]" />
 
       {/* Navbar */}
-                        <header className="relative pt-5 z-50">
-        <div className="w-[calc(100%-3rem)] mx-auto pl-3 pr-5 py-2 flex items-center justify-between bg-[rgba(14,18,28,0.7)] border border-white/10 rounded-full backdrop-blur-md shadow-2xl">
-          <Logo />
+        <header className="relative pt-5 z-50">
+        <div className="w-[calc(100%-3rem)] mx-auto pl-3 pr-5 py-2 flex items-center justify-between bg-[rgba(13,17,27,0.7)] border border-white/10 rounded-full backdrop-blur-md shadow-2xl">
+          <div className="flex items-center transition-all duration-300 drop-shadow-[0_0_12px_rgba(255,138,61,0.6)] cursor-pointer">
+            <Logo />
+          </div>
 
           <nav className="hidden md:flex gap-1 text-sm font-medium">
             <Link
@@ -37,6 +39,11 @@ export default function Home() {
               className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all"
             >
               Guidelines
+            </Link>
+
+            <Link href="/experiments" 
+                  className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all">
+             Experiments
             </Link>
           </nav>
 
