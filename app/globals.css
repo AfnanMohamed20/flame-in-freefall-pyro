@@ -192,6 +192,80 @@ body::after {
   animation: float-card 6s ease-in-out infinite 0.8s;
 }
 
+@keyframes fire-border-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fire-flicker-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 14px rgba(255, 120, 20, 0.7),
+      0 0 28px rgba(255, 70, 0, 0.45),
+      0 0 45px rgba(255, 170, 40, 0.25),
+      inset 0 0 16px rgba(255, 100, 20, 0.2);
+    border-color: rgba(255, 160, 40, 0.85);
+  }
+  33% {
+    box-shadow: 
+      0 0 20px rgba(255, 170, 50, 0.85),
+      0 0 38px rgba(255, 90, 20, 0.6),
+      0 0 60px rgba(255, 200, 50, 0.35),
+      inset 0 0 22px rgba(255, 130, 30, 0.28);
+    border-color: rgba(255, 200, 70, 1);
+  }
+  66% {
+    box-shadow: 
+      0 0 10px rgba(255, 100, 20, 0.6),
+      0 0 22px rgba(255, 50, 0, 0.35),
+      0 0 35px rgba(255, 130, 20, 0.2),
+      inset 0 0 12px rgba(255, 90, 20, 0.15);
+    border-color: rgba(255, 140, 30, 0.75);
+  }
+}
+
+.animate-fire-frame {
+  animation: fire-flicker-glow 3.5s ease-in-out infinite;
+}
+
+.animate-fire-spin {
+  animation: fire-border-spin 7s linear infinite;
+}
+
+.animate-fire-spin-reverse {
+  animation: fire-border-spin 11s linear infinite reverse;
+}
+
+@keyframes ribbon-dash-flow {
+  0% {
+    stroke-dashoffset: 60;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ribbon-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6)) drop-shadow(0 0 16px rgba(37, 99, 235, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 26px rgba(37, 99, 235, 0.75));
+  }
+}
+
+.animate-ribbon-dash {
+  animation: ribbon-dash-flow 2.2s linear infinite;
+}
+
+.animate-ribbon-glow {
+  animation: ribbon-glow-pulse 3s ease-in-out infinite;
+}
+
 @theme inline {
   --font-sans: var(--font-ubuntu), sans-serif;
   --font-mono: ui-monospace, monospace;
