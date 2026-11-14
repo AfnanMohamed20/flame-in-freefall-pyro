@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import Logo from "@/app/components/Logo";
 
 export default function Home() {
-  const [activeGravityTab, setActiveGravityTab] = useState<'micro' | 'earth'>('micro');
+
 
   return (
     <div className="min-h-screen bg-transparent text-[#EEF1F7] font-['Plus_Jakarta_Sans'] relative overflow-x-hidden selection:bg-[#FF6A28] selection:text-white z-10">
@@ -70,17 +69,17 @@ export default function Home() {
             >
               Dashboard
             </Link>
-            <Link
-              href="/chat"
-              className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all"
-            >
-              AI Chat
-            </Link>
+
             <Link
               href="/guidelines"
               className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all"
             >
               Guidelines
+            </Link>
+
+            <Link href="/experiments" 
+                  className="text-[#C3CAD8] hover:text-white hover:bg-white/5 px-4 py-2 rounded-full transition-all">
+             Experiments
             </Link>
           </nav>
 
@@ -413,8 +412,11 @@ export default function Home() {
 
       {/* HOW IT WORKS SECTION - DYNAMIC CONNECTED INFOGRAPHIC (Photo 1 Content in Photo 2 Design) */}
       <section className="relative max-w-[1240px] w-[calc(100%-3rem)] mx-auto py-20 z-10">
+        {/* Ambient cosmic blue background glow for infographic */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1000px] h-[360px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.15),transparent_70%)] pointer-events-none" />
+
         {/* Section Header with Photo 1 content */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 relative z-10">
           <div className="flex flex-col gap-3.5 max-w-[700px] text-left">
             <div className="text-xs font-mono font-bold text-[#FF8A4C] tracking-widest uppercase">
               HOW IT WORKS
@@ -437,307 +439,284 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Dynamic Ribbon Flowing Infographic Pipeline (Matching Photo 2) */}
-        <div className="relative pt-4">
-          
-          {/* 3 Step Cards Connected Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 items-stretch">
-            
-            {/* Step 1 Card */}
-            <div className="relative flex flex-col justify-between rounded-[26px] bg-gradient-to-b from-[#0F1E42]/90 via-[#09112B]/95 to-[#050A1C]/98 border border-[#2563EB]/40 p-7 sm:p-8 backdrop-blur-xl shadow-[0_15px_40px_rgba(0,0,0,0.7),inset_0_0_25px_rgba(37,99,235,0.15)] hover:border-[#60A5FA] hover:shadow-[0_20px_50px_rgba(37,99,235,0.35),inset_0_0_35px_rgba(59,130,246,0.25)] transition-all duration-300 hover:-translate-y-2 group overflow-hidden min-h-[310px]">
+        {/* Dynamic Connected Ribbon Infographic (Faithful to Photo 2) */}
+        <div className="relative z-10">
+
+          {/* DESKTOP CONNECTED FLOW (Cards connected by arching electric-blue ribbon bridges) */}
+          <div className="hidden md:flex items-stretch justify-center gap-0 lg:gap-1 relative pb-10 pt-4">
+
+            {/* STEP 1: INGEST */}
+            <div className="flex-1 max-w-[370px] relative rounded-[28px] bg-gradient-to-b from-[#14265C]/90 via-[#0A1333]/95 to-[#060B1E]/98 border-2 border-[#2563EB]/45 p-7 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_2px_rgba(255,255,255,0.25),inset_0_0_30px_rgba(37,99,235,0.2)] hover:border-[#38BDF8] hover:shadow-[0_25px_60px_rgba(56,189,248,0.35),inset_0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300 hover:-translate-y-2 group flex flex-col justify-between min-h-[360px]">
               
-              {/* Inner ambient blue corner glow */}
-              <div className="absolute top-0 right-0 w-36 h-36 bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_70%)] pointer-events-none" />
+              {/* Corner ambient light */}
+              <div className="absolute top-0 right-0 w-36 h-36 bg-[radial-gradient(circle,rgba(56,189,248,0.22),transparent_70%)] pointer-events-none rounded-tr-[28px]" />
 
               <div className="flex flex-col gap-3 relative z-10 text-left">
-                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#60A5FA] uppercase bg-[#3B82F6]/10 border border-[#3B82F6]/30 px-3 py-1 rounded-full w-fit">
+                {/* Glowing Blue Ingestion Icon (matching Photo 2 icon placement) */}
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1E3A8A] to-[#172554] border border-[#3B82F6]/50 flex items-center justify-center text-[#38BDF8] shadow-[0_0_20px_rgba(59,130,246,0.5)] mb-1 group-hover:scale-110 transition-transform">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                  </svg>
+                </div>
+
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#38BDF8] uppercase">
                   FIRST STEP
                 </span>
 
-                <h3 className="m-0 font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white group-hover:text-[#93C5FD] transition-colors">
+                <h3 className="m-0 font-['Space_Grotesk'] text-2xl lg:text-3xl font-bold text-white group-hover:text-[#BAE6FD] transition-colors">
                   Ingest
                 </h3>
 
-                <p className="m-0 text-[#C3CAD8] text-sm sm:text-base leading-relaxed">
-                  Experiment datasets and reports from NASA PSI and the Technical
-                  Reports Server are parsed into one catalog.
+                <p className="m-0 text-[#C3CAD8] text-sm lg:text-base leading-relaxed">
+                  Experiment datasets and reports from NASA PSI and the Technical Reports Server are parsed into one catalog.
                 </p>
               </div>
 
-              {/* Bottom Ribbon Cradle with Number 01 on Left */}
-              <div className="relative z-10 mt-8 pt-5 border-t border-blue-500/20 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-2xl text-white shadow-[0_0_25px_rgba(59,130,246,0.9),inset_0_0_12px_rgba(255,255,255,0.4)] border border-[#93C5FD]">
-                    01
-                  </div>
-                  <span className="text-xs font-mono font-semibold tracking-wider text-[#93C5FD]">
-                    CATALOGING
-                  </span>
-                </div>
+              {/* Bottom Ribbon Shelf */}
+              <div className="relative z-10 mt-8 pt-4 flex items-center justify-between">
+                <span className="text-xs font-mono text-[#38BDF8] font-semibold tracking-wider pl-16">
+                  CATALOGING
+                </span>
                 <span className="text-[11px] font-mono text-[#8E98AB]">NASA PSI / NTRS</span>
               </div>
 
-              {/* Glowing bottom ribbon bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-[5px] bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#2563EB] shadow-[0_0_15px_rgba(59,130,246,0.9)]" />
+              {/* Glowing horizontal electric-blue ribbon bar */}
+              <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#2563EB] shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
+
+              {/* Step Tab 01 (Nestled on bottom-left, matching Photo 2) */}
+              <div className="absolute -bottom-5 left-5 w-14 h-12 rounded-xl bg-[#060D24] border-2 border-[#38BDF8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-2xl text-white shadow-[0_0_20px_rgba(56,189,248,0.85),inset_0_0_10px_rgba(37,99,235,0.6)] z-20 group-hover:shadow-[0_0_30px_rgba(56,189,248,1)] transition-shadow">
+                01
+              </div>
             </div>
 
-            {/* Step 2 Card */}
-            <div className="relative flex flex-col justify-between rounded-[26px] bg-gradient-to-b from-[#0F1E42]/90 via-[#09112B]/95 to-[#050A1C]/98 border border-[#2563EB]/40 p-7 sm:p-8 backdrop-blur-xl shadow-[0_15px_40px_rgba(0,0,0,0.7),inset_0_0_25px_rgba(37,99,235,0.15)] hover:border-[#60A5FA] hover:shadow-[0_20px_50px_rgba(37,99,235,0.35),inset_0_0_35px_rgba(59,130,246,0.25)] transition-all duration-300 hover:-translate-y-2 group overflow-hidden min-h-[310px]">
+            {/* INVERTED-U ARCH CONNECTOR 1 (Between Step 1 and Step 2) */}
+            <div className="w-14 lg:w-20 self-end -mb-[3px] relative flex items-center justify-center shrink-0 z-10">
+              <svg viewBox="0 0 60 110" className="w-full h-24 lg:h-28 overflow-visible animate-ribbon-glow" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="ribbonArchGrad1" x1="0%" y1="100%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#2563EB" />
+                    <stop offset="50%" stopColor="#38BDF8" />
+                    <stop offset="100%" stopColor="#2563EB" />
+                  </linearGradient>
+                </defs>
+                {/* Thick glowing electric-blue ribbon bridge */}
+                <path
+                  d="M 0,107 C 8,107 14,95 14,75 L 14,35 C 14,14 46,14 46,35 L 46,75 C 46,95 52,107 60,107"
+                  fill="none"
+                  stroke="url(#ribbonArchGrad1)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  className="opacity-95"
+                />
+                {/* Inner bright core beam */}
+                <path
+                  d="M 0,107 C 8,107 14,95 14,75 L 14,35 C 14,14 46,14 46,35 L 46,75 C 46,95 52,107 60,107"
+                  fill="none"
+                  stroke="#E0F2FE"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeDasharray="14 16"
+                  className="animate-ribbon-dash opacity-90"
+                />
+              </svg>
+            </div>
+
+            {/* STEP 2: UNDERSTAND WITH AI */}
+            <div className="flex-1 max-w-[370px] relative rounded-[28px] bg-gradient-to-b from-[#14265C]/90 via-[#0A1333]/95 to-[#060B1E]/98 border-2 border-[#2563EB]/45 p-7 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_2px_rgba(255,255,255,0.25),inset_0_0_30px_rgba(37,99,235,0.2)] hover:border-[#38BDF8] hover:shadow-[0_25px_60px_rgba(56,189,248,0.35),inset_0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300 hover:-translate-y-2 group flex flex-col justify-between min-h-[360px]">
               
-              <div className="absolute top-0 right-0 w-36 h-36 bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_70%)] pointer-events-none" />
+              <div className="absolute top-0 right-0 w-36 h-36 bg-[radial-gradient(circle,rgba(56,189,248,0.22),transparent_70%)] pointer-events-none rounded-tr-[28px]" />
 
               <div className="flex flex-col gap-3 relative z-10 text-left">
-                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#60A5FA] uppercase bg-[#3B82F6]/10 border border-[#3B82F6]/30 px-3 py-1 rounded-full w-fit">
+                {/* Glowing AI Chip Icon */}
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1E3A8A] to-[#172554] border border-[#3B82F6]/50 flex items-center justify-center text-[#38BDF8] shadow-[0_0_20px_rgba(59,130,246,0.5)] mb-1 group-hover:scale-110 transition-transform">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                </div>
+
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#38BDF8] uppercase">
                   SECOND STEP
                 </span>
 
-                <h3 className="m-0 font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white group-hover:text-[#93C5FD] transition-colors">
+                <h3 className="m-0 font-['Space_Grotesk'] text-2xl lg:text-3xl font-bold text-white group-hover:text-[#BAE6FD] transition-colors">
                   Understand with AI
                 </h3>
 
-                <p className="m-0 text-[#C3CAD8] text-sm sm:text-base leading-relaxed">
-                  A retrieval-backed LLM summarizes each campaign and compares fuel,
-                  airflow, oxygen and pressure — with citations.
+                <p className="m-0 text-[#C3CAD8] text-sm lg:text-base leading-relaxed">
+                  A retrieval-backed LLM summarizes each campaign and compares fuel, airflow, oxygen and pressure — with citations.
                 </p>
               </div>
 
-              {/* Bottom Ribbon Cradle with Number 02 on Right (matching alternating pattern in Photo 2) */}
-              <div className="relative z-10 mt-8 pt-5 border-t border-blue-500/20 flex items-center justify-between">
-                <span className="text-[11px] font-mono text-[#8E98AB]">RAG SYNTHESIS</span>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-semibold tracking-wider text-[#93C5FD]">
-                    CROSS-PARAM
-                  </span>
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-2xl text-white shadow-[0_0_25px_rgba(59,130,246,0.9),inset_0_0_12px_rgba(255,255,255,0.4)] border border-[#93C5FD]">
-                    02
-                  </div>
-                </div>
+              {/* Bottom Ribbon Shelf */}
+              <div className="relative z-10 mt-8 pt-4 flex items-center justify-between">
+                <span className="text-[11px] font-mono text-[#8E98AB]">CROSS-PARAM SYNTHESIS</span>
+                <span className="text-xs font-mono text-[#38BDF8] font-semibold tracking-wider pr-16">
+                  RAG ENGINE
+                </span>
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 h-[5px] bg-gradient-to-r from-[#2563EB] via-[#60A5FA] to-[#3B82F6] shadow-[0_0_15px_rgba(59,130,246,0.9)]" />
+              {/* Glowing horizontal electric-blue ribbon bar */}
+              <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#2563EB] shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
+
+              {/* Step Tab 02 (Nestled on bottom-right, matching Photo 2 alternating pattern) */}
+              <div className="absolute -bottom-5 right-5 w-14 h-12 rounded-xl bg-[#060D24] border-2 border-[#38BDF8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-2xl text-white shadow-[0_0_20px_rgba(56,189,248,0.85),inset_0_0_10px_rgba(37,99,235,0.6)] z-20 group-hover:shadow-[0_0_30px_rgba(56,189,248,1)] transition-shadow">
+                02
+              </div>
             </div>
 
-            {/* Step 3 Card */}
-            <div className="relative flex flex-col justify-between rounded-[26px] bg-gradient-to-b from-[#0F1E42]/90 via-[#09112B]/95 to-[#050A1C]/98 border border-[#2563EB]/40 p-7 sm:p-8 backdrop-blur-xl shadow-[0_15px_40px_rgba(0,0,0,0.7),inset_0_0_25px_rgba(37,99,235,0.15)] hover:border-[#60A5FA] hover:shadow-[0_20px_50px_rgba(37,99,235,0.35),inset_0_0_35px_rgba(59,130,246,0.25)] transition-all duration-300 hover:-translate-y-2 group overflow-hidden min-h-[310px]">
+            {/* INVERTED-U ARCH CONNECTOR 2 (Between Step 2 and Step 3) */}
+            <div className="w-14 lg:w-20 self-end -mb-[3px] relative flex items-center justify-center shrink-0 z-10">
+              <svg viewBox="0 0 60 110" className="w-full h-24 lg:h-28 overflow-visible animate-ribbon-glow" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="ribbonArchGrad2" x1="0%" y1="100%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#2563EB" />
+                    <stop offset="50%" stopColor="#38BDF8" />
+                    <stop offset="100%" stopColor="#2563EB" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M 0,107 C 8,107 14,95 14,75 L 14,35 C 14,14 46,14 46,35 L 46,75 C 46,95 52,107 60,107"
+                  fill="none"
+                  stroke="url(#ribbonArchGrad2)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  className="opacity-95"
+                />
+                <path
+                  d="M 0,107 C 8,107 14,95 14,75 L 14,35 C 14,14 46,14 46,35 L 46,75 C 46,95 52,107 60,107"
+                  fill="none"
+                  stroke="#E0F2FE"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeDasharray="14 16"
+                  className="animate-ribbon-dash opacity-90"
+                />
+              </svg>
+            </div>
+
+            {/* STEP 3: ACT SAFELY */}
+            <div className="flex-1 max-w-[370px] relative rounded-[28px] bg-gradient-to-b from-[#14265C]/90 via-[#0A1333]/95 to-[#060B1E]/98 border-2 border-[#2563EB]/45 p-7 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_2px_rgba(255,255,255,0.25),inset_0_0_30px_rgba(37,99,235,0.2)] hover:border-[#38BDF8] hover:shadow-[0_25px_60px_rgba(56,189,248,0.35),inset_0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300 hover:-translate-y-2 group flex flex-col justify-between min-h-[360px]">
               
-              <div className="absolute top-0 right-0 w-36 h-36 bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_70%)] pointer-events-none" />
+              <div className="absolute top-0 right-0 w-36 h-36 bg-[radial-gradient(circle,rgba(56,189,248,0.22),transparent_70%)] pointer-events-none rounded-tr-[28px]" />
 
               <div className="flex flex-col gap-3 relative z-10 text-left">
-                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#60A5FA] uppercase bg-[#3B82F6]/10 border border-[#3B82F6]/30 px-3 py-1 rounded-full w-fit">
+                {/* Glowing Shield / Safety Icon */}
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1E3A8A] to-[#172554] border border-[#3B82F6]/50 flex items-center justify-center text-[#38BDF8] shadow-[0_0_20px_rgba(59,130,246,0.5)] mb-1 group-hover:scale-110 transition-transform">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#38BDF8] uppercase">
                   THIRD STEP
                 </span>
 
-                <h3 className="m-0 font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white group-hover:text-[#93C5FD] transition-colors">
+                <h3 className="m-0 font-['Space_Grotesk'] text-2xl lg:text-3xl font-bold text-white group-hover:text-[#BAE6FD] transition-colors">
                   Act safely
                 </h3>
 
-                <p className="m-0 text-[#C3CAD8] text-sm sm:text-base leading-relaxed">
-                  Findings become prevention, detection, suppression and habitat-design
-                  guidelines linked to their evidence.
+                <p className="m-0 text-[#C3CAD8] text-sm lg:text-base leading-relaxed">
+                  Findings become prevention, detection, suppression and habitat-design guidelines linked to their evidence.
                 </p>
               </div>
 
-              {/* Bottom Ribbon Cradle with Number 03 on Left */}
-              <div className="relative z-10 mt-8 pt-5 border-t border-blue-500/20 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-2xl text-white shadow-[0_0_25px_rgba(59,130,246,0.9),inset_0_0_12px_rgba(255,255,255,0.4)] border border-[#93C5FD]">
-                    03
-                  </div>
-                  <span className="text-xs font-mono font-semibold tracking-wider text-[#93C5FD]">
-                    PROTOCOLS
-                  </span>
-                </div>
+              {/* Bottom Ribbon Shelf */}
+              <div className="relative z-10 mt-8 pt-4 flex items-center justify-between">
+                <span className="text-xs font-mono text-[#38BDF8] font-semibold tracking-wider pl-16">
+                  PROTOCOLS
+                </span>
                 <span className="text-[11px] font-mono text-[#8E98AB]">HABITAT &amp; CREW</span>
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 h-[5px] bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#2563EB] shadow-[0_0_15px_rgba(59,130,246,0.9)]" />
+              {/* Glowing horizontal electric-blue ribbon bar */}
+              <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#2563EB] shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
+
+              {/* Step Tab 03 (Nestled on bottom-left, matching Photo 2) */}
+              <div className="absolute -bottom-5 left-5 w-14 h-12 rounded-xl bg-[#060D24] border-2 border-[#38BDF8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-2xl text-white shadow-[0_0_20px_rgba(56,189,248,0.85),inset_0_0_10px_rgba(37,99,235,0.6)] z-20 group-hover:shadow-[0_0_30px_rgba(56,189,248,1)] transition-shadow">
+                03
+              </div>
             </div>
 
           </div>
 
-          {/* Connected Ribbon Arch Connectors between the cards (matching Photo 2) */}
-          <div className="hidden md:block absolute bottom-0 left-0 right-0 h-[80px] pointer-events-none z-0">
-            <svg className="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 80">
-              <defs>
-                <linearGradient id="infographic-ribbon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1D4ED8" />
-                  <stop offset="30%" stopColor="#3B82F6" />
-                  <stop offset="50%" stopColor="#60A5FA" />
-                  <stop offset="70%" stopColor="#3B82F6" />
-                  <stop offset="100%" stopColor="#1D4ED8" />
-                </linearGradient>
-                <filter id="ribbon-glow-filter" x="-20%" y="-40%" width="140%" height="180%">
-                  <feGaussianBlur stdDeviation="5" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* Continuous curved ribbon line that arches up between card 1 & 2, and card 2 & 3 */}
-              <path
-                d="M 20,70 L 300,70 C 315,70 325,10 345,10 C 365,10 375,70 390,70 L 610,70 C 625,70 635,10 655,10 C 675,10 685,70 700,70 L 980,70"
-                fill="none"
-                stroke="url(#infographic-ribbon-grad)"
-                strokeWidth="8"
-                strokeLinecap="round"
-                filter="url(#ribbon-glow-filter)"
-                className="opacity-80"
-              />
-              <path
-                d="M 20,70 L 300,70 C 315,70 325,10 345,10 C 365,10 375,70 390,70 L 610,70 C 625,70 635,10 655,10 C 675,10 685,70 700,70 L 980,70"
-                fill="none"
-                stroke="#BFDBFE"
-                strokeWidth="2"
-                strokeLinecap="round"
-                className="opacity-90"
-              />
-            </svg>
-          </div>
+          {/* MOBILE RESPONSIVE STACK (< md) */}
+          <div className="flex md:hidden flex-col gap-10 pt-2 pb-6">
 
-        </div>
-      </section>
-
-      {/* INTERACTIVE COMPARISON LABORATORY: EARTH (1 g) VS SPACE (0 g) */}
-      <section className="relative max-w-[1240px] w-[calc(100%-3rem)] mx-auto py-12">
-        <div className="rounded-[32px] border border-white/15 bg-[radial-gradient(ellipse_at_top,rgba(255,106,40,0.12),transparent_50%),#090D18] p-8 md:p-12 shadow-2xl overflow-hidden relative">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
-            <div className="flex flex-col gap-2 max-w-[620px]">
-              <div className="text-xs font-mono font-bold tracking-widest text-[#7DB8FF] uppercase">
-                COMPARATIVE COMBUSTION LABORATORY
+            {/* Mobile Step 1 */}
+            <div className="relative rounded-3xl bg-gradient-to-b from-[#14265C] to-[#060B1E] border-2 border-[#2563EB]/45 p-6 shadow-xl flex flex-col gap-4 text-left">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#38BDF8] uppercase">
+                  FIRST STEP
+                </span>
+                <div className="w-10 h-10 rounded-xl bg-[#060D24] border-2 border-[#38BDF8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-lg text-white shadow-[0_0_15px_rgba(56,189,248,0.8)]">
+                  01
+                </div>
               </div>
-              <h2 className="m-0 font-['Space_Grotesk'] font-bold text-3xl md:text-4xl text-white tracking-tight">
-                Earth Gravity (1 g) vs. Microgravity (0 g)
-              </h2>
-              <p className="m-0 text-[#A9B2C3] text-sm md:text-base leading-relaxed">
-                Toggle between gravitational environments to see how fire physics flips completely in space.
+              <h3 className="m-0 font-['Space_Grotesk'] text-2xl font-bold text-white">
+                Ingest
+              </h3>
+              <p className="m-0 text-[#C3CAD8] text-sm leading-relaxed">
+                Experiment datasets and reports from NASA PSI and the Technical Reports Server are parsed into one catalog.
               </p>
+              <div className="h-1 bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#2563EB] rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
             </div>
 
-            {/* Toggle switch */}
-            <div className="flex p-1.5 rounded-full bg-white/5 border border-white/10 self-start md:self-auto backdrop-blur-md">
-              <button
-                onClick={() => setActiveGravityTab('micro')}
-                className={`px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition-all cursor-pointer ${
-                  activeGravityTab === 'micro'
-                    ? 'bg-gradient-to-r from-[#FF8A3D] to-[#FF5A1F] text-white shadow-lg shadow-orange-500/30'
-                    : 'text-[#A9B2C3] hover:text-white'
-                }`}
-              >
-                MICROGRAVITY (0 g)
-              </button>
-              <button
-                onClick={() => setActiveGravityTab('earth')}
-                className={`px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition-all cursor-pointer ${
-                  activeGravityTab === 'earth'
-                    ? 'bg-gradient-to-r from-[#7DB8FF] to-[#3D7BFF] text-white shadow-lg shadow-blue-500/30'
-                    : 'text-[#A9B2C3] hover:text-white'
-                }`}
-              >
-                TERRESTRIAL (1 g)
-              </button>
-            </div>
-          </div>
-
-          {/* Comparison Details Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-8 items-center">
-            
-            {/* Visual simulation representation */}
-            <div className="flex flex-col items-center justify-center p-8 rounded-2xl bg-[#060810] border border-white/10 relative overflow-hidden min-h-[300px]">
-              {activeGravityTab === 'micro' ? (
-                <>
-                  <div className="w-36 h-36 rounded-full bg-[radial-gradient(circle,rgba(125,184,255,0.9)_0%,rgba(77,140,255,0.5)_50%,rgba(255,106,40,0.15)_75%,transparent_100%)] shadow-[0_0_60px_rgba(125,184,255,0.4)] animate-pulse duration-[3000ms] flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.9)_0%,rgba(142,197,255,0.7)_60%,transparent_100%)]" />
-                  </div>
-                  <div className="mt-6 text-center">
-                    <span className="text-xs font-mono font-bold text-[#7DB8FF] tracking-wider uppercase block">
-                      SPHERICAL DIFFUSION FLAME
-                    </span>
-                    <span className="text-xs text-[#8E98AB]">
-                      Faint blue chemiluminescence, isotropic heat field
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-24 h-40 rounded-t-full rounded-b-xl bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,200,0.95)_0%,rgba(255,138,60,0.9)_45%,rgba(255,60,20,0.6)_75%,transparent_100%)] shadow-[0_0_50px_rgba(255,106,40,0.5)] animate-flame flex items-end justify-center pb-3">
-                    <div className="w-8 h-12 rounded-t-full bg-white/90" />
-                  </div>
-                  <div className="mt-6 text-center">
-                    <span className="text-xs font-mono font-bold text-[#FFA26B] tracking-wider uppercase block">
-                      BUOYANT TEARDROP FLAME
-                    </span>
-                    <span className="text-xs text-[#8E98AB]">
-                      Bright yellow soot incandescence, upward heat plume
-                    </span>
-                  </div>
-                </>
-              )}
+            {/* Mobile Connector Arrow */}
+            <div className="flex justify-center -my-4">
+              <div className="w-1 h-8 bg-gradient-to-b from-[#38BDF8] to-[#2563EB] rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
             </div>
 
-            {/* Parameter specs */}
-            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/8 flex flex-col gap-2">
-                <span className="text-xs font-mono text-[#8E98AB] uppercase tracking-wider">Combustion Driving Mechanism</span>
-                <span className="text-lg font-bold text-white font-['Space_Grotesk']">
-                  {activeGravityTab === 'micro' ? 'Pure Molecular Diffusion' : 'Strong Natural Convection'}
+            {/* Mobile Step 2 */}
+            <div className="relative rounded-3xl bg-gradient-to-b from-[#14265C] to-[#060B1E] border-2 border-[#2563EB]/45 p-6 shadow-xl flex flex-col gap-4 text-left">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#38BDF8] uppercase">
+                  SECOND STEP
                 </span>
-                <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">
-                  {activeGravityTab === 'micro'
-                    ? 'No density-driven buoyancy occurs. Oxygen arrives only by slow thermal and molecular diffusion across concentric spherical gradients.'
-                    : 'Hot light gas rushes upward at 2–3 m/s, continuously sucking dense cold oxygenated air into the base of the fire.'}
-                </p>
+                <div className="w-10 h-10 rounded-xl bg-[#060D24] border-2 border-[#38BDF8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-lg text-white shadow-[0_0_15px_rgba(56,189,248,0.8)]">
+                  02
+                </div>
               </div>
+              <h3 className="m-0 font-['Space_Grotesk'] text-2xl font-bold text-white">
+                Understand with AI
+              </h3>
+              <p className="m-0 text-[#C3CAD8] text-sm leading-relaxed">
+                A retrieval-backed LLM summarizes each campaign and compares fuel, airflow, oxygen and pressure — with citations.
+              </p>
+              <div className="h-1 bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#2563EB] rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
+            </div>
 
-              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/8 flex flex-col gap-2">
-                <span className="text-xs font-mono text-[#8E98AB] uppercase tracking-wider">Visual Appearance & Luminance</span>
-                <span className="text-lg font-bold text-white font-['Space_Grotesk']">
-                  {activeGravityTab === 'micro' ? 'Ghostly Blue / Low-Temp Cool' : 'Intense Radiant Yellow-Orange'}
-                </span>
-                <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">
-                  {activeGravityTab === 'micro'
-                    ? 'Zero soot agglomeration produces a very faint blue CH* radical emission. Cool flames emit almost no visible photons while actively reacting.'
-                    : 'Abundant high-temperature soot particles incandesce brilliantly at 1,400°C–1,800°C, illuminating the entire room.'}
-                </p>
-              </div>
+            {/* Mobile Connector Arrow */}
+            <div className="flex justify-center -my-4">
+              <div className="w-1 h-8 bg-gradient-to-b from-[#38BDF8] to-[#2563EB] rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
+            </div>
 
-              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/8 flex flex-col gap-2">
-                <span className="text-xs font-mono text-[#8E98AB] uppercase tracking-wider">Behavior In Stagnant Air</span>
-                <span className="text-lg font-bold text-white font-['Space_Grotesk']">
-                  {activeGravityTab === 'micro' ? 'Auto-Suffocation' : 'Self-Sustaining Burning'}
+            {/* Mobile Step 3 */}
+            <div className="relative rounded-3xl bg-gradient-to-b from-[#14265C] to-[#060B1E] border-2 border-[#2563EB]/45 p-6 shadow-xl flex flex-col gap-4 text-left">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#38BDF8] uppercase">
+                  THIRD STEP
                 </span>
-                <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">
-                  {activeGravityTab === 'micro'
-                    ? 'Without cabin air movement, combustion products (CO₂ and H₂O) accumulate around the flame sphere until oxygen is totally depleted.'
-                    : 'The fire naturally generates its own vigorous fresh-air updraft regardless of whether room fans are on or off.'}
-                </p>
+                <div className="w-10 h-10 rounded-xl bg-[#060D24] border-2 border-[#38BDF8] flex items-center justify-center font-['Space_Grotesk'] font-bold text-lg text-white shadow-[0_0_15px_rgba(56,189,248,0.8)]">
+                  03
+                </div>
               </div>
-
-              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/8 flex flex-col gap-2">
-                <span className="text-xs font-mono text-[#8E98AB] uppercase tracking-wider">Crew Suppression Protocol</span>
-                <span className="text-lg font-bold text-white font-['Space_Grotesk']">
-                  {activeGravityTab === 'micro' ? 'Isolate Module Ventilation First' : 'Aim At Fuel Base Direct'}
-                </span>
-                <p className="m-0 text-xs text-[#A9B2C3] leading-relaxed">
-                  {activeGravityTab === 'micro'
-                    ? 'Cutting ventilation cuts off the primary oxygen supply. Flooding with gas suppressant requires tracking temperature due to invisible cool flame reignition.'
-                    : 'Direct liquid or chemical powder streams onto the burning base to cool solid mass below its flash pyrolysis threshold.'}
-                </p>
-              </div>
+              <h3 className="m-0 font-['Space_Grotesk'] text-2xl font-bold text-white">
+                Act safely
+              </h3>
+              <p className="m-0 text-[#C3CAD8] text-sm leading-relaxed">
+                Findings become prevention, detection, suppression and habitat-design guidelines linked to their evidence.
+              </p>
+              <div className="h-1 bg-gradient-to-r from-[#2563EB] via-[#38BDF8] to-[#2563EB] rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
             </div>
 
           </div>
 
         </div>
       </section>
-
-
-
 
       {/* WHY NOW: THE ARTEMIS CHALLENGE - NO ICONS */}
       <section className="relative max-w-[1240px] w-[calc(100%-3rem)] mx-auto py-12">
-        <div className="rounded-[32px] border border-white/10 bg-[radial-gradient(ellipse_at_0%_0%,rgba(255,106,40,0.18),transparent_55%),radial-gradient(ellipse_at_100%_100%,rgba(77,163,255,0.18),transparent_55%),#0A0E18] p-8 md:p-14 flex flex-col gap-10 shadow-2xl">
+        <div className="rounded-[32px] bg-[radial-gradient(ellipse_at_0%_0%,rgba(255,106,40,0.18),transparent_55%),radial-gradient(ellipse_at_100%_100%,rgba(77,163,255,0.18),transparent_55%),#0A0E18] p-8 md:p-14 flex flex-col gap-10 shadow-2xl">
           
           <div className="flex flex-col gap-3.5 max-w-[760px] text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7DB8FF]/10 border border-[#7DB8FF]/30 text-xs font-mono font-bold text-[#7DB8FF] tracking-wider uppercase w-fit">
@@ -758,7 +737,7 @@ export default function Home() {
           {/* 3 Telemetry Metric Cards with NO icons */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             
-            <div className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#FF8A3D]/40 transition-all">
+            <div className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.03] transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono text-[#FF8A3D] uppercase tracking-wider font-semibold">Oxygen Ratio</span>
                 <span className="text-[11px] font-mono text-[#8E98AB]">ISS: 21%</span>
@@ -774,7 +753,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#7DB8FF]/40 transition-all">
+            <div className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.03] transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono text-[#7DB8FF] uppercase tracking-wider font-semibold">Cabin Pressure</span>
                 <span className="text-[11px] font-mono text-[#8E98AB]">Sea Level: 14.7 psia</span>
@@ -790,7 +769,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#5FE3AA]/40 transition-all">
+            <div className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.03] transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono text-[#5FE3AA] uppercase tracking-wider font-semibold">Lunar Gravity</span>
                 <span className="text-[11px] font-mono text-[#8E98AB]">Earth: 1.0 g</span>
@@ -954,115 +933,6 @@ export default function Home() {
       </section>
 
 
-      {/* SAMPLE RESEARCH QUERIES SECTION */}
-      <section className="relative max-w-[1240px] w-[calc(100%-3rem)] mx-auto py-12">
-        <div className="p-8 md:p-12 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-md flex flex-col gap-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <div className="text-xs font-mono font-bold text-[#FF8A3D] tracking-wider uppercase">
-                EXPLORE WITH ONE CLICK
-              </div>
-              <h3 className="m-0 font-['Space_Grotesk'] text-2xl md:text-3xl font-bold text-white">
-                Frequent Combustion Inquiries
-              </h3>
-            </div>
-            <Link
-              href="/chat"
-              className="text-xs font-semibold text-[#7DB8FF] hover:text-white transition-colors"
-            >
-              Open Interactive AI Workspace &rarr;
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/chat"
-              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/[0.05] transition-all flex flex-col gap-1.5 no-underline group"
-            >
-              <div className="text-sm font-semibold text-white group-hover:text-[#FF8A3D] transition-colors">
-                &ldquo;Why do flames form spheres in microgravity instead of teardrops?&rdquo;
-              </div>
-              <div className="text-xs text-[#8E98AB]">
-                Explains buoyancy cessation, molecular diffusion gradients, and the FLEX droplet discoveries.
-              </div>
-            </Link>
-
-            <Link
-              href="/chat"
-              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/[0.05] transition-all flex flex-col gap-1.5 no-underline group"
-            >
-              <div className="text-sm font-semibold text-white group-hover:text-[#FF8A3D] transition-colors">
-                &ldquo;What is the cool flame phenomenon discovered on the ISS?&rdquo;
-              </div>
-              <div className="text-xs text-[#8E98AB]">
-                Details low-temperature oxidation, flameless reactions, and why visual extinction can be deceptive.
-              </div>
-            </Link>
-
-            <Link
-              href="/chat"
-              className="p-4 rounded-2xl bg-white/[0.03] border border-blue-500/50 hover:border-blue-500 hover:bg-blue-500/[0.05] transition-all flex flex-col gap-1.5 no-underline group"
-            >
-              <div className="text-sm font-semibold text-white group-hover:text-[#7DB8FF] transition-colors">
-                &ldquo;Why is NASA-STD-6001 Test 1 not always conservative for spacecraft?&rdquo;
-              </div>
-              <div className="text-xs text-[#8E98AB]">
-                Compares terrestrial upward-burning flammability tests with low-flow microgravity conditions.
-              </div>
-            </Link>
-
-            <Link
-              href="/chat"
-              className="p-4 rounded-2xl bg-white/[0.03] border border-emerald-500/50 hover:border-emerald-500 hover:bg-emerald-500/[0.05] transition-all flex flex-col gap-1.5 no-underline group"
-            >
-              <div className="text-sm font-semibold text-white group-hover:text-[#5FE3AA] transition-colors">
-                &ldquo;What are the immediate suppression steps for an in-cabin fire?&rdquo;
-              </div>
-              <div className="text-xs text-[#8E98AB]">
-                Lists critical order: ventilation shutdown, rack power isolation, CO₂/mist discharge, gas monitoring.
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-
-      {/* FINAL CALL TO ACTION */}
-      <section className="relative max-w-[1240px] w-[calc(100%-3rem)] mx-auto my-16">
-        <div className="relative rounded-[32px] border border-orange-500/30 bg-gradient-to-b from-[#101626] to-[#080B14] p-10 md:p-16 text-center flex flex-col items-center gap-6 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[radial-gradient(circle,rgba(255,106,40,0.2),transparent_70%)] pointer-events-none" />
-          
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#FFB067]">
-            OPEN RESEARCH ACCESS
-          </div>
-
-          <h2 className="m-0 font-['Space_Grotesk'] font-bold text-3xl md:text-5xl text-white max-w-[700px] tracking-tight">
-            Ready to explore the physics of fire in microgravity?
-          </h2>
-
-          <p className="m-0 text-[#A9B2C3] text-base md:text-lg max-w-[580px] leading-relaxed">
-            Access indexed experiment data from the ISS and Cygnus, or chat directly 
-            with our combustion research assistant.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4 z-10">
-            <Link
-              href="/dashboard"
-              className="bg-gradient-to-r from-[#FF8A3D] to-[#FF5A1F] hover:brightness-110 text-white font-semibold px-8 py-3.5 rounded-full shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-95 transition-all"
-            >
-              Launch Dashboard
-            </Link>
-            <Link
-              href="/chat"
-              className="text-white font-semibold px-8 py-3.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 active:scale-95 transition-all backdrop-blur-md"
-            >
-              Start AI Query
-            </Link>
-          </div>
-        </div>
-      </section>
-
-
       {/* FOOTER */}
       <footer className="relative border-t border-white/10 mt-16 bg-[rgba(14,18,28,0.85)] backdrop-blur-md">
         <div className="max-w-[1240px] w-[calc(100%-3rem)] mx-auto py-14 flex flex-col gap-10">
@@ -1121,7 +991,7 @@ export default function Home() {
 
           <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6F7A8F]">
             <div>
-              &copy; {new Date().getFullYear()} PyroNova. Not an official NASA product. All experimental research rights belong to NASA and participating universities.
+              &copy; 2026 PyroNova. Not an official NASA product. All experimental research rights belong to NASA and participating universities.
             </div>
             <div className="font-mono text-[11px] text-[#8E98AB]">
               MISSION TELEMETRY: READY
